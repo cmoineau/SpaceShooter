@@ -56,3 +56,9 @@ https://developer.mozilla.org/fr/docs/Web/Guide/DOM/Events/Creating_and_triggeri
 Voir code ! :)
 
 ## TP 0.2 :
+
+## TP 1 :
+
+### Exercice 4 :
+
+Ici on doit faire 3 carrées qui bougent. On pourrait le faire en recopiant 3 fois le code, mais ce n'est pas très malin. Je propose dons de créer une classe movingSquare qui va avoir en variable un canvas. Ainsi j'aurais juste à lancer 3 movingSquare avec un délais grâce à la commande setInterval.

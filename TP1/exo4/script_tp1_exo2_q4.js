@@ -1,54 +1,62 @@
-var delayID;
-var c;
-numberOfSquare=0;
-var foward=true;
 
+// NOT WORKING !!!!!
+var delayID;
+var numberOfSquare=0;
+var squares=[];
 function start(){
-	c=0;
+	squares[numberOfSquare]= new movingSquare();
+	intervalID=setInterval(squares[numberOfSquare].moveSquare, 100);
 	numberOfSquare++;
-	intervalID=setInterval(moveSquare, 100);
 	if (numberOfSquare==3){
 		clearInterval(delayID);
 	}
 }
-
-
 
 function letsStart(){
 	delayID = setInterval(start,2000);
 }
 
 class movingSquare{
-	var intervalID;
-	var canvas;
 	constructor(){
-		this.canvas = document.getElementById("myCanvas"); 
+		this.c=0;
+		this.foward=true;
+		this.div=document.getElementById("canvasd");
+		this.canvas = document.createElement("canvas");
+		this.canvas.width=10000;
+		this.canvas.height=100
+		this.div.appendChild(this.canvas);
+
+		function drawSquare(x,y){
+			console.log('test');
+			this.context = this.canvas.getContext("2d");
+			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+			this.context.beginPath();
+			this.context.fillRect(x,y,100,100);
+			this.context.fillStyle="red";
+			this.context.stroke();
+		}
+		function getc(){
+			return this.c;
+		}
+		function setc(nc){
+			this.c=nc;
+		}
 	}
-	function moveSquare(){
-		drawSquare(c,0);
-		if (foward){
-			c+=10;	
-		}
-		else{
-			c-=10;
-		}
-		var larg = (document.body.clientWidth);
-		if(c>larg-100){
-			foward=false;
-		}
-		if(c==0){
-			foward=true;
-		}
+}
+function moveSquare(){
+	console.log(String(c));
+	drawSquare(this.c,0,this.canvas);
+	if (foward){
+		this.c+=10;	
 	}
-	function drawSquare(x,y)
-	{
-		  var canvas = document.getElementById("canvas1"); 
-		  var context = canvas.getContext("2d");
-		  context.clearRect(0, 0, canvas.width, canvas.height);
-		  context.beginPath();
-		  //context.lineWidth="2";
-		  context.fillRect(x,y,100,100);
-		  context.fillStyle="red";
-		  context.stroke();
+	else{
+		this.c-=10;
+	}
+	var larg = (document.body.clientWidth);
+	if(this.c>larg-100){
+		this.foward=false;
+	}
+	if(this.c==0){
+		this.foward=true;
 	}
 }
