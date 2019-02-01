@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Test n°6</title>
+	</head>
+	<script type="text/javascript">	
+		var imagePath="./images/coin-sprite-animation.png"
+		var img = new Image();
+		img.src = imagePath;
+		var canvas;
+		var ctx;
+		var x=0;
+		function updateImage(){
+			var canvas = document.getElementById('canvas1');
+			var ctx = canvas.getContext('2d');
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(img, x,0,100,100,0,0,100,100);
+			x+=100;
+			if(x>1000){x=0;}
+			setTimeout(requestAnimationFrame(updateImage), 3000);;
+		}
+
+		function letsAnim(){
+			requestAnimationFrame(updateImage);
+		}
+
+	</script>
+	<body onload="letsAnim()">
+    	<canvas id="canvas1" width="100" height="100"></canvas>
+	</body>
+
+</html>

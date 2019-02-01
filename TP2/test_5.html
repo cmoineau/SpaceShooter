@@ -13,15 +13,6 @@
 		var lastTimeItMoved=new Date();
 		var updateTime=100;
 
-		function initObject (){
-		  canvas = document.getElementById("canvas1"); 
-		  var context = canvas.getContext("2d");
-		  context.beginPath();
-		  context.fillRect(0,0,100,100);
-		  context.fillStyle="red";
-		  context.stroke();
-		requestAnimationFrame(moveSquare);
-		}
 
 		function rectangle(x,y){
 		  canvas = document.getElementById("canvas1"); 
