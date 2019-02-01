@@ -62,3 +62,11 @@ Voir code ! :)
 ### Exercice 4 :
 
 Ici on doit faire 3 carrées qui bougent. On pourrait le faire en recopiant 3 fois le code, mais ce n'est pas très malin. Je propose dons de créer une classe movingSquare qui va avoir en variable un canvas. Ainsi j'aurais juste à lancer 3 movingSquare avec un délais grâce à la commande setInterval.
+
+## TP2 :
+
+L'idée est d'utiliser request Animation au lieu d'utiliser les setInterval pour faire des boucles de jeux.
+
+En introduisant, une fonction pausecomp qui simule le temps de travail pour le traitement d'une image complexe par exemple, en lançant test1.html, on se rend compte que notre carré ne bouge pas de manière fluide.
+
+Pour que l'animation se fassent en temps réel, je calcul le delta de temps entre la dernière fois où le carré à été affiché et le moment actuel et je divise par la durée de l'intervalle.
