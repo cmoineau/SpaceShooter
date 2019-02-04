@@ -29,16 +29,16 @@ function initGame(){
 function mainLoop(){
   if(keyPressed[0]){
     moveLeft(); 
-    }
+  }
   if(keyPressed[1]){
     moveRight(); 
-    keyPressed[1]=false;}
+  }
   if(keyPressed[2]){
     moveDown(); 
-    keyPressed[2]=false;}
+  }
   if(keyPressed[3]){
     moveUp(); 
-    keyPressed[3]=false;}
+  }
   requestAnimationFrame(mainLoop);
   
 }
@@ -87,7 +87,7 @@ window.addEventListener("keydown", function (event) {
       playerY+=10;
       if(imageX>=512){
         imageX=0;
-        keyPressed[3]=false;
+        keyPressed[2]=false;
       }
     }
     function moveUp(){
@@ -97,7 +97,7 @@ window.addEventListener("keydown", function (event) {
       playerY-=10;
       if(imageX>=512){
         imageX=0;
-        keyPressed[2]=false;
+        keyPressed[3]=false;
       }
     }
     function moveRight(){
