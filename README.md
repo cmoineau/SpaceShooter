@@ -86,3 +86,15 @@ Avec x qui s'incrémente de 100 (la taille de l'image de la pièce).
 ## TP3 :
 
 Dans ce TP, nous allons apprendre à récupérer les entrées utilisateurs !
+
+
+
+## TP4 :
+
+Dans ce TP nous allons créer notre jue à partir d'une base.
+
+Nous avons un code de base avec des assets disponible. Le jeu de base ressemble à ceci :
+
+### Ajout de la fonctionnalité de "tir" :
+
+Dans un premier temps je vais ajouter la possibilité de faire un tir, dans le code préexistant, on voit que le tir est prévu pour être déclencher par la touche 'espace'. On pourra d'ailleur noté une erreure dans le code de base, il y a marqué Space et non SPACE comme définis plus haut. Cette  changé je vais essayer de lancer une boule dans la direction que regarde mon vaisseau.
