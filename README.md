@@ -73,4 +73,16 @@ Pour que l'animation se fassent en temps réel, je calcul le delta de temps entr
 
 ### Animation d'une pièce :
 
-On a une image, on veut afficher dans le canvas une sous partie de l'image
+On a une image, on veut afficher dans le canvas une sous partie de l'image. 
+
+On utilise pour ça la méthode : 
+
+```javascript
+ctx.drawImage(img, x,0,100,100,0,0,100,100);
+```
+
+Avec x qui s'incrémente de 100 (la taille de l'image de la pièce).
+
+## TP3 :
+
+Dans ce TP, nous allons apprendre à récupérer les entrées utilisateurs !
