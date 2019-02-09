@@ -31,7 +31,11 @@ var xBackgroundOffset = 0;
 var xBackgroundSpeed = 1;
 var backgroundWidth = 1782;
 var backgroundHeight = 600;
-//une modification
+
+//Sounds
+var laser_sfx = new Audio('./assets/Sounds/sfx_laser_shot.wav');
+var music = new Audio('./assets/Sounds/main_music.mp3');
+var explosion_sfx = new Audio('./assets/Sounds/sfx_explosion.wav');
 
 ///////////////////////////////////
 //Keys
@@ -75,6 +79,7 @@ function ProjectileSet(tabTarget){
   this.tabProjectiles = new Array();
   this.add = function (projectile) {
     this.tabProjectiles.push(projectile);  
+    laser_sfx.play();
   };
   this.remove = function () {  
 
@@ -218,6 +223,7 @@ function Enemy(x,y,speed){
     this.projectileSet = new ProjectileSet();
     this.explodes = function(){
         this.cptExplosion = 1;
+        explosion_sfx.play();
     };
     this.collision = function(tabOfObjects){
         var hits = null;
@@ -308,6 +314,7 @@ var player = {
         this.projectileSet.add(tmp);
     },
     explodes : function(){
+        explosion_sfx.play();
         if(this.timeToBeAlive == 0) {
             this.nbOfLives--;
             if(this.nbOfLives>0){
@@ -519,6 +526,7 @@ function init() {
     window.addEventListener("keyup", keyUpHandler, false);
     
     idAnimation=animFrame( recursiveAnim );
+    music.play();
     
 }
 
