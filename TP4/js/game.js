@@ -206,7 +206,7 @@ function Enemy(x,y,speed){
     this.height = 30;
     this.width = 40;
     this.img = new Image();
-    this.img.src = "./assets/Enemy/eSpritesheet_40x30.png";
+    this.img.src = "./assets/Enemy/Hue\ Shifted/eSpritesheet_40x30_hue2.png";
     this.cpt = 0;
 
     this.cptExplosion =  0;//10 images
@@ -499,7 +499,7 @@ function init() {
     canScore.setAttribute("height", ArenaHeight);
     canScore.setAttribute("width", ArenaWidth);
     conScore = canScore.getContext("2d");
-    conScore.fillStyle = "rgb(200,0,0)";
+    //conScore.fillStyle = "rgb(200,0,0)";
     conScore.font = 'bold 12pt Courier';
     divArena.appendChild(canScore);
 
@@ -508,7 +508,7 @@ function init() {
     canMenu.setAttribute("height", ArenaHeight);
     canMenu.setAttribute("width", ArenaWidth);
     conMenu = canScore.getContext("2d");
-    conMenu.fillStyle = "rgb(200,0,0)";
+    conMenu.fillStyle = "rgb(250,250,250)";
     conMenu.font = 'bold 12pt Courier';
     divArena.appendChild(canScore);
 

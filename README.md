@@ -95,6 +95,10 @@ Dans ce TP nous allons créer notre jue à partir d'une base.
 
 Nous avons un code de base avec des assets disponible. Le jeu de base ressemble à ceci :
 
-### Ajout de la fonctionnalité de "tir" :
+### Idée d'option à ajouter :
 
-Dans un premier temps je vais ajouter la possibilité de faire un tir, dans le code préexistant, on voit que le tir est prévu pour être déclencher par la touche 'espace'. On pourra d'ailleur noté une erreure dans le code de base, il y a marqué Space et non SPACE comme définis plus haut. Cette  changé je vais essayer de lancer une boule dans la direction que regarde mon vaisseau.
+- trajectoire != pour les soucoupes (poser 1 fonction de trajectoire au constructeur)
+- Game Over -> RAZ (appuyer sur escape pour reprendre)
+- tableau de score ?
+- Boss de fin
+- Aptitude supplémentaire (à récupérer)
