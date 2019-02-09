@@ -34,10 +34,10 @@ var backgroundHeight = 600;
 
 //Sounds
 var laser_sfx = new Audio('./assets/Sounds/sfx_laser_shot.wav');
-var music = new Audio('./assets/Sounds/main_music.mp3');
 var explosion_sfx = new Audio('./assets/Sounds/sfx_explosion.wav');
+var music = new Audio('./assets/Sounds/main_music.mp3');
+music.loop=true;
 
-///////////////////////////////////
 //Keys
 var keys = {
     UP: 38,
@@ -47,6 +47,8 @@ var keys = {
 };
 
 var keyStatus = {};
+
+///////////////////////////////////
 
 function keyDownHandler(event) {
     "use strict"; 
@@ -463,7 +465,6 @@ function menuloop(){
 
 function drawMenu(){
     if( !gameRunning){
-        conMenu.fillText("Space Shooter", 180, 25);
         conMenu.fillText("[Press 'space' to begin the game]", 100,150);  
     }
 }
