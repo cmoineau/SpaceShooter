@@ -33,7 +33,7 @@ var player = {
                 this.cptExplosion = 1;
             }else{
                 //Game Over
-                gameRunning=false;
+                gameOver();
             }
         }
     },

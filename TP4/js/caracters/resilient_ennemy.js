@@ -1,6 +1,6 @@
 /////////////////////////////////
-// Ennemy
-function Enemy(x,y,speed){
+// Enemy
+function ResilientEnemy(x,y,speed){
     this.x = x;
     this.yOrigine = y;
     this.y = this.yOrigine;
@@ -9,7 +9,7 @@ function Enemy(x,y,speed){
     this.height = 30;
     this.width = 40;
     this.img = new Image();
-    this.img.src = "./assets/Enemy/Hue\ Shifted/eSpritesheet_40x30_hue2.png";
+    this.img.src = "./assets/Enemy/Hue\ Shifted/eSpritesheet_40x30_hue1.png";
     this.cpt = 0;
 
     this.cptExplosion =  0;//10 images
@@ -38,10 +38,6 @@ function Enemy(x,y,speed){
         }
         return hits;
     };
-    this.fire = function (){
-        var tmp = new Projectile(this.x-10,this.y+this.height/2,-4,10,5,"rgb(0,200,0)");
-        this.projectileSet.add(tmp);
-    };
     this.draw = function(){ 
 
         this.projectileSet.draw();
@@ -58,6 +54,10 @@ function Enemy(x,y,speed){
         }
         this.projectileSet.clear();
     };
+    this.fire = function (){
+        var tmp = new Projectile(this.x-10,this.y+this.height/2,-4,10,5,"rgb(0,200,0)");
+        this.projectileSet.add(tmp);
+    };
     this.update = function(){
        if(this.cptExplosion==0){//is not exploding
             this.x +=   this.xSpeed ;
@@ -71,7 +71,7 @@ function Enemy(x,y,speed){
             if(tics % 5 == 1) {
                     this.cpt = (this.cpt + 1) % 6;
             }
-            //if(tics % 50 == 1) this.fire();
+            if(tics % 50 == 1) this.fire();
        }else{
             if(tics % 3 == 1) {
                 this.cptExplosion++;
@@ -84,38 +84,3 @@ function Enemy(x,y,speed){
         this.projectileSet.update();
     };
 }
-/////////////////////////////
-// Management of the ennemies
-var enemies = {
-    init : function(){
-        this.tabEnemies = new Array();
-    },
-    add : function (enemy) {
-        this.tabEnemies.push(enemy);  
-    },
-    remove : function () {  
-        this.tabEnemies.map(function(obj,index,array){
-            if(obj.exists == false ||obj.x >ArenaWidth || obj.x<0){
-                  delete array[index];
-            }
-        });
-    },
-    draw : function(){ 
-        this.tabEnemies.map(function(obj){
-            obj.draw();
-        });
-    },
-    clear : function(){
-       this.tabEnemies.map(function(obj){
-            obj.clear();
-        });
-    },
-    update : function(){
-
-        this.tabEnemies.map(function(obj){
-            obj.update();
-        });
-        this.remove();
-    }
-    
-};

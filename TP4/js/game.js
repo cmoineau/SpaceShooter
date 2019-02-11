@@ -9,7 +9,6 @@ var idAnimation=undefined;
 
 var tics = 0;
 var _timeToBeAlive = 30;
-
 var gameRunning=false;
 
 //Canvas
@@ -33,10 +32,6 @@ var backgroundWidth = 1782;
 var backgroundHeight = 600;
 
 
-
-//Score
-
-//var scores = JSON.parse(scores);
 
 //Keys
 var keys = {
@@ -122,8 +117,9 @@ function initGame(){
     enemies.init();
 }
 
-function resetGame(){
-
+function gameOver(){
+    gameRunning=false;
+    updateHighScore(player.projectileSet.score);
 }
 
 function init() {
@@ -154,7 +150,7 @@ function init() {
     conMenu.font = 'bold 12pt Courier';
     divArena.appendChild(canScore);
 
-
+    setHighScore();
     
     window.addEventListener("keydown", keyDownHandler, false);
     window.addEventListener("keyup", keyUpHandler, false);

@@ -127,3 +127,12 @@ Pour mettre à jour les variables, je déplace l'initialisation du nobre de poin
 
 ### 4ème amélioration : Tableau de highscore 
 
+Dans un premier temps, j'ai voulu faire un tableau de haighscore via un objet sérialisé en json. Après recherche, il se trouve qu'utiliser du json n'est pas très interressant car on n'a pas de serveur qui enverrait des données à notre client. Je vais donc pluot faire le stockage du score via le localStorage.
+
+J'ai dû créer une fonction pour vérifier si le highscore était déjà définis pour éviter de le remettre à 0 à chaque fois qu'on refresh la page.
+
+
+
+### 5ème amélioration : Ajout d'un ennemi
+
+Je vias ajouter un ennemi qui avance tout droit.

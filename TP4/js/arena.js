@@ -8,8 +8,19 @@ function updateItems() {
     tics++;
      if(tics % 100 == 1) {
          var rand = Math.floor(Math.random() * ArenaHeight);
-
-        enemies.add(new Enemy(ArenaWidth, rand,-2));
+        if(player.projectileSet.score<5){
+            enemies.add(new Enemy(ArenaWidth, rand,-2));
+        }
+        else{
+            var x = Math.floor(Math.random() * (3 ));
+            console.log(x);
+            if(x<2) {
+                enemies.add(new Enemy(ArenaWidth, rand,-2));
+            }
+            else {
+                enemies.add(new ResilientEnemy(ArenaWidth, rand,-2));
+            }
+        }
     }
     enemies.update();
 }
@@ -34,4 +45,5 @@ function clearScore() {
 function drawScore() {
     conScore.fillText("life : "+player.nbOfLives, 10, 25);
     conScore.fillText("score : "+player.projectileSet.score, 150,25);
+    conScore.fillText("high score : "+localStorage.getItem('highscore'), 300,25);
 }
