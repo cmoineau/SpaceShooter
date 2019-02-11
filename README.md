@@ -55,8 +55,6 @@ https://developer.mozilla.org/fr/docs/Web/Guide/DOM/Events/Creating_and_triggeri
 
 Voir code ! :)
 
-## TP 0.2 :
-
 ## TP 1 :
 
 ### Exercice 4 :
@@ -91,9 +89,11 @@ Dans ce TP, nous allons apprendre à récupérer les entrées utilisateurs !
 
 ## TP4 :
 
-Dans ce TP nous allons créer notre jue à partir d'une base.
+Dans ce TP nous allons créer notre jeu à partir d'une base. Nous avons un code de base avec des assets disponible.
 
-Nous avons un code de base avec des assets disponible. Le jeu de base ressemble à ceci :
+![](./screenshot/tp4_base.png)
+
+
 
 ### Idée d'option à ajouter :
 
@@ -102,3 +102,28 @@ Nous avons un code de base avec des assets disponible. Le jeu de base ressemble 
 - tableau de score ?
 - Boss de fin
 - Aptitude supplémentaire (à récupérer)
+- Écran de menu
+- Ajout de musique et SFX
+
+### 1ere amélioration : Ajout d'un menu
+
+Dans un premier temps je vais rajouter un menu, pour cela je vais rajouter un boolean "gameRunning" qui indique si l'on est dans l'état "menu" ou dans l'état "jeu".
+
+Ensuite je crée via une manipulation du DOM un écran de menu.
+
+J'en profite pour ajouter un peu de css pour mettre la fenêtre de jeu au milieu de l'écran et mettre un fond noir à la page HTML. De plus, je fais commencer le jeu sur l'écran menu et je nous y fais revenir lorsque le joueur meurt.
+
+Résultat :
+
+![](./screenshot/tp4_1.png)
+
+### 2ème amélioration : Ajout de musique
+
+Ajout de musique via le chargement de variable 'audio'.
+
+### 3ème amélioration : Mise à jour des variables
+
+Pour mettre à jour les variables, je déplace l'initialisation du nobre de point de vie du joueur dans la méthode init. Et je déplace l'initialisation du joueur et des ennemies dans une méthode "initGame" qui est lancé au démarrage depuis le menu.
+
+### 4ème amélioration : Tableau de highscore 
+

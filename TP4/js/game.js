@@ -32,11 +32,11 @@ var xBackgroundSpeed = 1;
 var backgroundWidth = 1782;
 var backgroundHeight = 600;
 
-//Sounds
-var laser_sfx = new Audio('./assets/Sounds/sfx_laser_shot.wav');
-var explosion_sfx = new Audio('./assets/Sounds/sfx_explosion.wav');
-var music = new Audio('./assets/Sounds/main_music.mp3');
-music.loop=true;
+
+
+//Score
+
+//var scores = JSON.parse(scores);
 
 //Keys
 var keys = {
@@ -69,352 +69,10 @@ function keyUpHandler(event) {
             keyStatus[keycode] = false;
         }
         
-    }
+}
 ///////////////////////////////////
 
 
-///////////////////
-// une collection de projectiles
-function ProjectileSet(tabTarget){
-  this.tabTarget = tabTarget;
-  this.score = 0;
-  this.tabProjectiles = new Array();
-  this.add = function (projectile) {
-    this.tabProjectiles.push(projectile);  
-    laser_sfx.play();
-  };
-  this.remove = function () {  
-
-       this.tabProjectiles.map(function(obj,index,array){
-            if(obj.exists == false ||obj.x >ArenaWidth || obj.x<0){
-                  delete array[index];
-            }
-        });
-
-  };
-
-
- this.update = function(){
-        this.remove();
-        var score = 0;
-        this.tabProjectiles.map(function(obj){
-            obj.update();
-            if(obj.exists == false) {//hit
-                score = score +1;
-            }
-        });
-        this.score = this.score + score;
-    };
- this.clear = function(){
-    this.tabProjectiles.map(function(obj){
-         obj.clear();
-    });
- };
- this.draw = function(){
-    this.tabProjectiles.map(function(obj){
-        obj.draw();
-    });
-     //console.log(this.tabProjectiles.length);
- };
-    
-};
-
-////////////////////
-// un objet Projectile
-function Projectile(x,y,speed,width,height,color){
-    this.x = x;
-    this.y = y;
-    this.xSpeed = speed;
-    this.width = width;
-    this.height = height;
-    this.color = color;
-    this.exists = true;
-    this.collision = function(tabOfObjects){
-        var hits = null;
-        var index;
-        for(index in tabOfObjects){
-            if ((tabOfObjects[index].cptExplosion ==0) && this.x < tabOfObjects[index].x + tabOfObjects[index].width &&
-                this.x + this.width > tabOfObjects[index].x &&
-                this.y < tabOfObjects[index].y + tabOfObjects[index].height &&
-                this.height + this.y > tabOfObjects[index].y) {
-                    // collision detected!
-                    hits = tabOfObjects[index];
-                    break;
-            }
-        }
-        return hits;  
-    };
-    this.draw = function(){
-        if(this.exists){
-            conArena.fillStyle = this.color;
-            conArena.fillRect(this.x,this.y,this.width,this.height);
-        }
-    };
-    this.clear = function(){
-        if(this.exists){
-            conArena.clearRect(this.x-1,this.y-1,this.width+2,this.height+2);
-        }
-    };
-    this.update = function(){
-        if(this.exists){
-            this.x +=   this.xSpeed ;
-            var tmp = this.collision([player].concat(enemies.tabEnemies));
-            if(tmp != null){
-                tmp.explodes();
-                this.exists = false;
-            }
-        }
-    };
-}
-/////////////////////////////////
-
-/////////////////////////////////
-// Enemy
-var enemies = {
-    init : function(){
-        this.tabEnemies = new Array();
-    },
-    add : function (enemy) {
-        this.tabEnemies.push(enemy);  
-    },
-    remove : function () {  
-        this.tabEnemies.map(function(obj,index,array){
-            if(obj.exists == false ||obj.x >ArenaWidth || obj.x<0){
-                  delete array[index];
-            }
-        });
-    },
-    draw : function(){ 
-        this.tabEnemies.map(function(obj){
-            obj.draw();
-        });
-    },
-    clear : function(){
-       this.tabEnemies.map(function(obj){
-            obj.clear();
-        });
-    },
-    update : function(){
-
-        this.tabEnemies.map(function(obj){
-            obj.update();
-        });
-         this.remove();
-    }
-    
-};
-//test
-function Enemy(x,y,speed){
-    this.x = x;
-    this.yOrigine = y;
-    this.y = this.yOrigine;
-    this.xSpeed = speed;
-    this.exists = true;
-    this.height = 30;
-    this.width = 40;
-    this.img = new Image();
-    this.img.src = "./assets/Enemy/Hue\ Shifted/eSpritesheet_40x30_hue2.png";
-    this.cpt = 0;
-
-    this.cptExplosion =  0;//10 images
-    this.imgExplosion = new Image();
-    this.imgExplosionHeight = 128;
-    this.imgExplosionWidth = 128;
-    this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
-
-    this.projectileSet = new ProjectileSet();
-    this.explodes = function(){
-        this.cptExplosion = 1;
-        explosion_sfx.play();
-    };
-    this.collision = function(tabOfObjects){
-        var hits = null;
-        var index;
-        for(index in tabOfObjects){
-            if (this.x < tabOfObjects[index].x + tabOfObjects[index].width &&
-                this.x + this.width > tabOfObjects[index].x &&
-                this.y < tabOfObjects[index].y + tabOfObjects[index].height &&
-                this.height + this.y > tabOfObjects[index].y) {
-                    // collision detected!
-                    hits = tabOfObjects[index];
-                    break;
-            }
-        }
-        return hits;
-    };
-    this.fire = function (){
-        var tmp = new Projectile(this.x-10,this.y+this.height/2,-4,10,5,"rgb(0,200,0)");
-        this.projectileSet.add(tmp);
-    };
-    this.draw = function(){ 
-
-        this.projectileSet.draw();
-
-        if(this.cptExplosion!=0){
-                conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
-        }else{
-            conArena.drawImage(this.img,  0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
-        }
-    };
-    this.clear = function(){
-        if(this.exists){
-            conArena.clearRect(this.x,this.y,this.width,this.height);
-        }
-        this.projectileSet.clear();
-    };
-    this.update = function(){
-       if(this.cptExplosion==0){//is not exploding
-            this.x +=   this.xSpeed ;
-            this.y = this.yOrigine+ ArenaHeight/3 * Math.sin(this.x / 100);
-            var tmp = this.collision([player]);
-                if(tmp != null){
-                    tmp.explodes();
-                    this.exists = false;
-                }
-
-            if(tics % 5 == 1) {
-                    this.cpt = (this.cpt + 1) % 6;
-            }
-            //if(tics % 50 == 1) this.fire();
-       }else{
-            if(tics % 3 == 1) {
-                this.cptExplosion++;
-            }
-            if(this.cptExplosion>10){//end of animation
-                this.cptExplosion=0;
-                this.exists = false;
-            }
-        }
-        this.projectileSet.update();
-    };
-}
-/////////////////////////////////
-
-/////////////////////////////////
-// Hero Player
-var player = {
-    init : function(){
-        this.img = new Image();
-        this.img.src = "./assets/Ship/Spritesheet_64x29.png";
-        this.cpt = 0;
-        this.cptExplosion =  10;//10 images
-        this.imgExplosion = new Image();
-        this.imgExplosionHeight = 128;
-        this.imgExplosionWidth = 128;
-        this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
-        this.projectileSet = new ProjectileSet();
-    },
-    x : 20,
-    ySpeed : 10,
-    y : 100,
-    height : 29,
-    width : 64,
-    nbOfLives : 2,
-    timeToBeAlive : 0,
-    fires : function(){
-        var tmp = new Projectile(this.x+this.width,this.y+this.height/2,4,10,3,"rgb(200,0,0)");
-        this.projectileSet.add(tmp);
-    },
-    explodes : function(){
-        explosion_sfx.play();
-        if(this.timeToBeAlive == 0) {
-            this.nbOfLives--;
-            if(this.nbOfLives>0){
-                this.timeToBeAlive = _timeToBeAlive;
-                this.cptExplosion = 1;
-            }else{
-                //Game Over
-                gameRunning=false;
-            }
-        }
-    },
-    clear : function(){
-        conArena.clearRect(this.x,this.y,this.width,this.height);
-        this.projectileSet.clear();
-    },
-    update :  function(){
-        var keycode;
-        if(tics % 10 == 1) {
-                this.cpt = (this.cpt + 1) % 4;
-            }
-        if(this.timeToBeAlive>0) {
-            this.timeToBeAlive --;
-        }else{
-            for (keycode in keyStatus) {
-                if(keyStatus[keycode] == true){
-                    if(keycode == keys.UP) {
-                        this.y -= this.ySpeed;
-                        if(this.y<0) this.y=0;
-                    }
-                    if(keycode == keys.DOWN) {
-                        this.y += this.ySpeed;
-                        if(this.y>ArenaHeight-this.height) this.y=ArenaHeight-this.height;
-                    }
-                    if(keycode == keys.SPACE) {
-                        //shoot
-                        this.fires();
-                    }
-                }
-             keyStatus[keycode] = false;
-            }
-        }
-        this.projectileSet.update();
-    },
-    draw : function(){
-        if(this.timeToBeAlive == 0) {
-
-            conArena.drawImage(this.img, 0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
-        }else{
-            //exploding
-            if(this.cptExplosion!=0){
-                conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
-               if(tics % 3 == 1) {this.cptExplosion++;}
-                if(this.cptExplosion>10) this.cptExplosion=0;
-            }
-        }
-        this.projectileSet.draw();
-    }
-};
-
-
-
-function updateScene() {
-    "use strict"; 
-    xBackgroundOffset = (xBackgroundOffset - xBackgroundSpeed) % backgroundWidth;
-}
-function updateItems() {
-    "use strict"; 
-    player.update();
-    tics++;
-     if(tics % 100 == 1) {
-         var rand = Math.floor(Math.random() * ArenaHeight);
-
-        enemies.add(new Enemy(ArenaWidth, rand,-2));
-    }
-    enemies.update();
-}
-function drawScene() {
-    "use strict"; 
-    canArena.style.backgroundPosition = xBackgroundOffset + "px 0px" ;
-}
-function drawItems() {
-    "use strict"; 
-    player.draw();
-    enemies.draw();
-}
-function clearItems() {
-    "use strict"; 
-    player.clear(); 
-    enemies.clear();
-}
-
-function clearScore() {
-    conScore.clearRect(0,0,300,50);
-}
-function drawScore() {
-    conScore.fillText("life : "+player.nbOfLives, 10, 25);
-    conScore.fillText("score : "+player.projectileSet.score, 150,25);
-}
 function updateGame() {
     "use strict"; 
     updateScene();
@@ -457,39 +115,15 @@ function recursiveAnim () {
     idAnimation=animFrame( recursiveAnim );        
 }
 
-function menuloop(){
-    clearMenu();
-    updateMenu();
-    drawMenu();
+
+
+function initGame(){
+    player.init();
+    enemies.init();
 }
 
-function drawMenu(){
-    if( !gameRunning){
-        conMenu.fillText("[Press 'space' to begin the game]", 100,150);  
-    }
-}
-function clearMenu(){
-    conMenu.clearRect(0,0,1782,600);
-}
+function resetGame(){
 
-function updateMenu(){
-    for (keycode in keyStatus) {
-    if(keyStatus[keycode] == true){
-        if(keycode == keys.UP) {
-            // Move a cursor
-            console.log("move UP");
-        }
-        if(keycode == keys.DOWN) {
-            // Move a cursor
-            console.log("move DOWN");
-        }
-        if(keycode == keys.SPACE) {
-            // Do the action related to the selected button
-            gameRunning=true;
-        }
-    }
-    keyStatus[keycode] = false;
-    }
 }
 
 function init() {
@@ -520,8 +154,7 @@ function init() {
     conMenu.font = 'bold 12pt Courier';
     divArena.appendChild(canScore);
 
-    player.init();
-    enemies.init();
+
     
     window.addEventListener("keydown", keyDownHandler, false);
     window.addEventListener("keyup", keyUpHandler, false);
