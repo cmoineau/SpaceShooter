@@ -1,15 +1,15 @@
 /////////////////////////////////
-// Enemy
-function ResilientEnemy(x,y,speed){
+// Boss
+function Boss(x,y,speed){
     this.x = x;
     this.yOrigine = y;
     this.y = this.yOrigine;
     this.xSpeed = speed;
     this.exists = true;
-    this.height = 30;
-    this.width = 40;
+    this.height = 128;
+    this.width = 128;
     this.img = new Image();
-    this.img.src = "./assets/Enemy/Hue\ Shifted/eSpritesheet_40x30_hue1.png";
+    this.img.src = "./assets/Boss/head_sheet.png";
     this.cpt = 0;
 
     this.cptExplosion =  0;//10 images
@@ -18,10 +18,12 @@ function ResilientEnemy(x,y,speed){
     this.imgExplosionWidth = 128;
     this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
 
+    this.life = 2;
     this.projectileSet = new ProjectileSet();
     this.explodes = function(){
         this.cptExplosion = 1;
         explosion_sfx.play();
+        bossAlive=false;
     };
     this.collision = function(tabOfObjects){
         var hits = null;
@@ -37,6 +39,10 @@ function ResilientEnemy(x,y,speed){
             }
         }
         return hits;
+    };
+    this.fire = function (){
+        var tmp = new Aiming_Projectile(this.x-50,this.y+this.height/2,-4,10,5);
+        this.projectileSet.add(tmp);
     };
     this.draw = function(){ 
 
@@ -54,24 +60,23 @@ function ResilientEnemy(x,y,speed){
         }
         this.projectileSet.clear();
     };
-    this.fire = function (){
-        var tmp = new Projectile(this.x-10,this.y+this.height/2,-4,10,5,"rgb(0,200,0)");
-        this.projectileSet.add(tmp);
-    };
     this.update = function(){
        if(this.cptExplosion==0){//is not exploding
-            this.x +=   this.xSpeed ;
             this.y = this.yOrigine+ ArenaHeight/3 * Math.sin(this.x / 100);
             var tmp = this.collision([player]);
                 if(tmp != null){
-                    tmp.explodes();
-                    this.exists = false;
+                    life--;
+                    
+                        tmp.explodes();
+                    if (life==0){
+                        this.exists = false; 
+                    }         
                 }
 
             if(tics % 5 == 1) {
                     this.cpt = (this.cpt + 1) % 6;
             }
-            if(tics % 50 == 1) this.fire();
+            if(tics % 750 == 1) this.fire();
        }else{
             if(tics % 3 == 1) {
                 this.cptExplosion++;

@@ -10,6 +10,7 @@ var idAnimation=undefined;
 var tics = 0;
 var _timeToBeAlive = 30;
 var gameRunning=false;
+var bossAlive=false;
 
 //Canvas
 var divArena;

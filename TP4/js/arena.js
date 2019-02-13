@@ -7,20 +7,26 @@ function updateItems() {
     player.update();
     tics++;
      if(tics % 100 == 1) {
-         var rand = Math.floor(Math.random() * ArenaHeight);
+        var rand = Math.floor(Math.random() * ArenaHeight);
+        /*
         if(player.projectileSet.score<5){
             enemies.add(new Enemy(ArenaWidth, rand,-2));
         }
-        else{
+        else if(player.projectileSet.score<10){
             var x = Math.floor(Math.random() * (3 ));
-            console.log(x);
             if(x<2) {
                 enemies.add(new Enemy(ArenaWidth, rand,-2));
             }
             else {
-                enemies.add(new ResilientEnemy(ArenaWidth, rand,-2));
+                enemies.add(new FiringEnemy(ArenaWidth, rand,-2));
             }
-        }
+        }*/
+        //else{
+            if(bossAlive==false){
+                enemies.add(new Boss(ArenaWidth-128, ArenaHeight/2,-2));
+                bossAlive = true;
+            }
+        // }
     }
     enemies.update();
 }
