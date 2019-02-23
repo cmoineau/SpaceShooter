@@ -12,7 +12,7 @@ function updateItems() {
         if(player.projectileSet.score<5){
             enemies.add(new Enemy(ArenaWidth, rand,-2));
         }
-        else if(player.projectileSet.score<10){
+        else if(player.projectileSet.score<20){
             var x = Math.floor(Math.random() * (3 ));
             if(x<2) {
                 enemies.add(new Enemy(ArenaWidth, rand,-2));

@@ -11,6 +11,7 @@ function Boss(x,y,speed){
     this.img = new Image();
     this.img.src = "./assets/Boss/head_sheet.png";
     this.cpt = 0;
+    this.life=3;
 
     this.cptExplosion =  0;//10 images
     this.imgExplosion = new Image();
@@ -18,7 +19,9 @@ function Boss(x,y,speed){
     this.imgExplosionWidth = 128;
     this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
 
-    this.life = 2;
+    this.allowFire = true;
+
+    this.life = 3;
     this.projectileSet = new ProjectileSet();
     this.explodes = function(){
         this.cptExplosion = 1;
@@ -41,7 +44,7 @@ function Boss(x,y,speed){
         return hits;
     };
     this.fire = function (){
-        var tmp = new Aiming_Projectile(this.x-50,this.y+this.height/2,-4,10,5);
+        var tmp = new Aiming_Projectile(this.x-50,this.y+this.height/2,-8,10,5);
         this.projectileSet.add(tmp);
     };
     this.draw = function(){ 
@@ -65,10 +68,9 @@ function Boss(x,y,speed){
             this.y = this.yOrigine+ ArenaHeight/3 * Math.sin(this.x / 100);
             var tmp = this.collision([player]);
                 if(tmp != null){
-                    life--;
-                    
+                        this.life--;
                         tmp.explodes();
-                    if (life==0){
+                    if (this.life==0){
                         this.exists = false; 
                     }         
                 }
@@ -76,14 +78,26 @@ function Boss(x,y,speed){
             if(tics % 5 == 1) {
                     this.cpt = (this.cpt + 1) % 6;
             }
-            if(tics % 750 == 1) this.fire();
+            if(tics % 100 == 1){
+                if(tics % 300 == 1){
+                    this.allowFire = !this.allowFire;
+                }
+                if(this.allowFire){
+                    this.fire();
+                }
+            }
        }else{
             if(tics % 3 == 1) {
                 this.cptExplosion++;
             }
             if(this.cptExplosion>10){//end of animation
                 this.cptExplosion=0;
-                this.exists = false;
+                this.life--;
+                console.log("vie boss" + this.life);
+                if(this.life<=0){
+                    bossAlive=false
+                    this.exists = false;
+                }   
             }
         }
         this.projectileSet.update();
