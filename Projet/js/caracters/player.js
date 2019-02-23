@@ -12,17 +12,24 @@ var player = {
         this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
         this.projectileSet = new ProjectileSet();
         this.nbOfLives=2;
+        this.canFire = true;
+        this.reload=0;
+        console.log("Initialisation avec reload =" +this.reload);
+
     },
     x : 20,
     ySpeed : 10,
     y : 100,
     height : 29,
     width : 64,
-    
+    reload : 0,
     timeToBeAlive : 0, // A counter to avoid the player being hit more than once
     fires : function(){
-        var tmp = new Projectile(this.x+this.width,this.y+this.height/2,4,10,3,"rgb(200,0,0)");
-        this.projectileSet.add(tmp);
+        if(this.canFire){
+            var tmp = new Projectile(this.x+this.width,this.y+this.height/2,4,10,3,"rgb(200,0,0)");
+            this.projectileSet.add(tmp);
+            this.canFire=false;
+        }
     },
     explodes : function(){
         explosion_sfx.play();
@@ -42,7 +49,7 @@ var player = {
         this.projectileSet.clear();
     },
     update :  function(){
-        console.log("Cpt Explo :"  + this.cptExplosion);
+        //console.log("Cpt Explo :"  + this.cptExplosion);
         var keycode;
         if(tics % 10 == 1) {
                 this.cpt = (this.cpt + 1) % 4;
@@ -65,6 +72,16 @@ var player = {
                     }
                 }
              keyStatus[keycode] = false;
+            }
+        }
+        if(! this.canFire){
+            if(tics % 10 == 1) {
+                this.reload++;
+                console.log("Temps de recharge de l'arme = " + this.reload)
+                if(this.reload==5){
+                    this.canFire=true;
+                    this.reload=0;
+                }
             }
         }
         this.projectileSet.update();
