@@ -17,6 +17,7 @@ function Projectile(x,y,speed,width,height,color){
                 this.y < tabOfObjects[index].y + tabOfObjects[index].height &&
                 this.height + this.y > tabOfObjects[index].y) {
                     // collision detected!
+                    //console.log(tabOfObjects[index])
                     hits = tabOfObjects[index];
                     break;
             }
@@ -38,6 +39,7 @@ function Projectile(x,y,speed,width,height,color){
         if(this.exists){
             this.x +=   this.xSpeed ;
             var tmp = this.collision([player].concat(enemies.tabEnemies));
+            //console.log(tmp)
             if(tmp != null){
                 tmp.explodes();
                 this.exists = false;

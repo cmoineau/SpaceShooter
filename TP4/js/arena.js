@@ -8,7 +8,7 @@ function updateItems() {
     tics++;
      if(tics % 100 == 1) {
         var rand = Math.floor(Math.random() * ArenaHeight);
-        /*
+        
         if(player.projectileSet.score<5){
             enemies.add(new Enemy(ArenaWidth, rand,-2));
         }
@@ -20,13 +20,13 @@ function updateItems() {
             else {
                 enemies.add(new FiringEnemy(ArenaWidth, rand,-2));
             }
-        }*/
-        //else{
+        }
+        else{
             if(bossAlive==false){
                 enemies.add(new Boss(ArenaWidth-128, ArenaHeight/2,-2));
                 bossAlive = true;
             }
-        // }
+        }
     }
     enemies.update();
 }
