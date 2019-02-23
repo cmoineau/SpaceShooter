@@ -13,22 +13,20 @@ var player = {
         this.projectileSet = new ProjectileSet();
         this.nbOfLives=2;
         this.canFire = true;
-        this.reload=0;
-        console.log("Initialisation avec reload =" +this.reload);
-
+        this.reload=5;
     },
     x : 20,
     ySpeed : 10,
     y : 100,
     height : 29,
     width : 64,
-    reload : 0,
     timeToBeAlive : 0, // A counter to avoid the player being hit more than once
     fires : function(){
         if(this.canFire){
             var tmp = new Projectile(this.x+this.width,this.y+this.height/2,4,10,3,"rgb(200,0,0)");
             this.projectileSet.add(tmp);
             this.canFire=false;
+            this.reload=0;
         }
     },
     explodes : function(){
@@ -80,7 +78,6 @@ var player = {
                 console.log("Temps de recharge de l'arme = " + this.reload)
                 if(this.reload==5){
                     this.canFire=true;
-                    this.reload=0;
                 }
             }
         }

@@ -46,10 +46,15 @@ function clearItems() {
 }
 
 function clearScore() {
-    conScore.clearRect(0,0,300,50);
+    conScore.clearRect(0,0,500,100);
 }
 function drawScore() {
     conScore.fillText("life : "+player.nbOfLives, 10, 25);
+    var r="";
+    for(var i = 0; i<player.reload; i++){
+        r+=" | ";
+    }
+    conScore.fillText("reload : " + r, 10, 50);
     conScore.fillText("score : "+player.projectileSet.score, 150,25);
     conScore.fillText("high score : "+localStorage.getItem('highscore'), 300,25);
 }
