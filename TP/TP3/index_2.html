@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Events </title>
+    </head>
+
+    <body onload="initGame()">
+      <canvas id="canvas1" width="500" height="500"></canvas>
+    </body>
+
+<script>
+// VARIABLES
+var imagePath="./hero_walk_cycle_spritesheet_by_mrnoobtastic-d3defej.png"
+var img = new Image();
+img.src = imagePath;
+var canvas = document.getElementById('canvas1');
+canvas.setAttribute('style',"border-color:black; border-style: solid;");
+var ctx = canvas.getContext('2d');
+var playerX=250;
+var playerY=250;
+var imageX=0;
+var keyPressed=[false,false,false,false,false,false]; //Left Right Down Up Esc Enter
+
+function initGame(){
+  requestAnimationFrame(mainLoop);
+}
+
+function mainLoop(){
+  if(keyPressed[0]){
+    moveLeft(); 
+  }
+  if(keyPressed[1]){
+    moveRight(); 
+  }
+  if(keyPressed[2]){
+    moveDown(); 
+  }
+  if(keyPressed[3]){
+    moveUp(); 
+  }
+  requestAnimationFrame(mainLoop);
+  
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Should do nothing if the key event was already consumed.
+  }
+  switch (event.key) {
+
+    case "ArrowDown":
+      // Do something for "down arrow" key press.
+        keyPressed[2]=true;
+      break;
+    case "ArrowUp":
+      // Do something for "up arrow" key press.
+        keyPressed[3]=true;
+      break;
+    case "ArrowLeft":
+      // Do something for "left arrow" key press.
+        keyPressed[0]=true;
+      break;
+    case "ArrowRight":
+      // Do something for "right arrow" key press.
+        keyPressed[1]=true;
+      break;
+    case "Enter":
+      // Do something for "enter" or "return" key press.
+      break;
+    case "Escape":
+      // Do something for "esc" key press.
+        alert("PAUSE");
+      break;
+    default:
+    return; // Quit when this doesn't handle the key event.
+  }
+
+  // Consume the event for suppressing "double action".
+  event.preventDefault();
+}, true);
+
+    function moveDown(){      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, imageX,256,128,128,playerX,playerY,128,128);
+      imageX+=128;
+      playerY+=10;
+      if(imageX>=512){
+        imageX=0;
+        keyPressed[2]=false;
+      }
+    }
+    function moveUp(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, imageX,384,128,128,playerX,playerY,128,128);
+      imageX+=128;
+      playerY-=10;
+      if(imageX>=512){
+        imageX=0;
+        keyPressed[3]=false;
+      }
+    }
+    function moveRight(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, imageX,128,128,128,playerX,playerY,128,128);
+      imageX+=128;
+      playerX+=10;
+      if(imageX>=512){
+        imageX=0;
+        keyPressed[1]=false;
+      }
+    }
+    function moveLeft(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, imageX,0,128,128,playerX,playerY,128,128);
+      imageX+=128;
+      playerX-=10;
+      if(imageX>=512){
+        imageX=0;
+        keyPressed[0]=false;
+      }
+    }
+    </script>
