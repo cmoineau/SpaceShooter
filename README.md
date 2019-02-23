@@ -62,8 +62,17 @@ Je modifie la fonction qui gère l'ajout d'ennemi dans le tableau d'ennemi en aj
 
 ### 7ème amélioration : Ajout d'un boss
 
-J'ajoute un boss qui se tiendra au milieu de l'écran, il possédera des phases d'invulnérabilité indiqué par un bulle autour du boss, il tirera des boules qui suivront le joueur.
+J'ajoute un boss qui se tiendra au milieu de l'écran, il tirera des boules qui suivront le joueur. Les boules seront tirées en rafale et s'arrêterons à un certain moment pour que le joueur puisse esquiver.
+
+Sprite du boss :
 
 ![Boss](./screenshot/boss.gif)
 
-Le boss n'apparaitera qu'une fois que le score du joueur est supérieur à 10.
+Le boss n'apparaitera qu'une fois que le score du joueur sera supérieur à 10. Le boss aura un nombre de point de vie égal à 10.
+
+### 8ème amélioration :  Ajout d'un temps de chargement entre chaque tir
+
+Le jeu reste relativement facile, c'est pour cela que j'ai décidé qu'il pourrait être sympas de rajouter une barre de chargement au tir pour rajouter du challenge. Je rajoute donc une variable pour empécher de tirer et je met à jour un compteur de chargement.
+
+![Reload](./screenshot/tp4_reload.png)
+
