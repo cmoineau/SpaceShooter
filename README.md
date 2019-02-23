@@ -1,10 +1,18 @@
 # 		Programmation WEB
 
-Ce repository représente le mini projet de programmation WEB qui conclut notre initiation au JavaScript.
+## Présentation :
+
+Ce repository représente le travail réalisé lors des Travaux Pratique de l'initiation au JavaScript. Vous trouverez le rendu des différentes scéances dans le dossier TP et le projet final dans le dossier Projet.
+
+## Introduction au projet
 
 Dans ce TP nous allons créer notre jeu à partir d'un code de base avec des assets disponible.
 
 ![*Image du jeu de base* ](./screenshot/tp4_base.png)
+
+Le double objectif de ce Projet est à la fois de nous faire appliquer ce que nous avons vu lors des scéances de TP, mais aussi de s'entraîner à reprendre un code non commenté et que nous n'avons pas écrit.
+
+J'ai décidé d'améliorer la base que nous avons eu pour la faire tendre vers un petit jeu web que j'aime bien qui est : https://zty.pe/ . Je veux donc que le rendu final ressemble le plus possible à ce genre de jeu.
 
 ## Idées d'option à ajouter :
 
@@ -58,3 +66,4 @@ J'ajoute un boss qui se tiendra au milieu de l'écran, il possédera des phases 
 
 ![Boss](./screenshot/boss.gif)
 
+Le boss n'apparaitera qu'une fois que le score du joueur est supérieur à 10.
