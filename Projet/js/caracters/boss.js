@@ -97,6 +97,7 @@ function Boss(x,y,speed){
                 if(this.life<=0){
                     bossAlive=false
                     this.exists = false;
+                    bossAlive=false;
                 }   
             }
         }
